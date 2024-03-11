@@ -1,8 +1,9 @@
 import { SessionModel } from "../models/Session.model.js";
 
-const getAll = async (_, res) => {
+const findSession = async (req, res) => {
   try {
-    const response = await SessionModel.findAll();
+    const id = req.params.session_id;
+    const response = await SessionModel.findById(id);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
@@ -10,5 +11,5 @@ const getAll = async (_, res) => {
 };
 
 export const sessionController = {
-  getAll,
+  findSession,
 };
