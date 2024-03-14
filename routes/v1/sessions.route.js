@@ -25,7 +25,7 @@ const router = Router();
  *       404:
  *         description: Session not found.
  */
-router.get("/:session_id", sessionController.findSessionById);
+router.get("/:session_id", sessionController.findById);
 
 /**
  * @swagger
@@ -50,7 +50,7 @@ router.get("/:session_id", sessionController.findSessionById);
  *       404:
  *         description: No sessions found for the given week ID.
  */
-router.get("/week/:week_id", sessionController.findSessionsByWeekId);
+router.get("/week/:week_id", sessionController.findByWeekId);
 
 /**
  * @swagger
@@ -75,6 +75,6 @@ router.get("/week/:week_id", sessionController.findSessionsByWeekId);
  *       404:
  *         description: Session not found or could not be deleted.
  */
-router.delete("/:session_id", sessionController.deleteSessionById);
+router.delete("/:session_id", sessionController.deleteById);
 
 export default router;

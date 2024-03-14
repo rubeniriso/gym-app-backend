@@ -1,6 +1,6 @@
 import { SessionExerciseModel } from "../models/SessionExercise.model.js";
 
-const findExercisesBySessionById = async (req, res) => {
+const findBySessionById = async (req, res) => {
   try {
     const id = req.params.session_id;
     const response = await SessionExerciseModel.findBySessionId(id);
@@ -10,7 +10,7 @@ const findExercisesBySessionById = async (req, res) => {
   }
 };
 
-const deleteSessionExercise = async (req, res) => {
+const deleteById = async (req, res) => {
   try {
     const id = req.params.sessionexercise_id;
     const response = await SessionExerciseModel.deleteById(id);
@@ -20,7 +20,7 @@ const deleteSessionExercise = async (req, res) => {
   }
 };
 
-const createSessionExercise = async (req, res) => {
+const create = async (req, res) => {
   try {
     const response = await SessionExerciseModel.create(req.body);
     res.status(200).json(response.rows);
@@ -30,7 +30,7 @@ const createSessionExercise = async (req, res) => {
 };
 
 export const exerciseSessionController = {
-  findExercisesBySessionById,
-  deleteSessionExercise,
-  createSessionExercise,
+  findBySessionById,
+  deleteById,
+  create,
 };

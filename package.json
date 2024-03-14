@@ -5,8 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "npm run open-browser && nodemon index.js",
+    "start": "node index.js",
+    "open-browser": "xdg-open http://localhost:5002/api/v1/docs"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

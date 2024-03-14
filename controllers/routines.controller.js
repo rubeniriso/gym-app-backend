@@ -1,6 +1,6 @@
 import { RoutineModel } from "../models/Routine.model.js";
 
-const findRoutineById = async (req, res) => {
+const findById = async (req, res) => {
   try {
     const id = req.params.routine_id;
     const response = await RoutineModel.findById(id);
@@ -10,10 +10,20 @@ const findRoutineById = async (req, res) => {
   }
 };
 
-const findRoutineByUser = async (req, res) => {
+const findAllByUser = async (req, res) => {
   try {
     const userId = req.params.user_id;
-    const response = await RoutineModel.findByUser(userId);
+    const response = await RoutineModel.findAllByUser(userId);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const create = async (req, res) => {
+  try {
+    const userId = req.params.user_id;
+    const response = await RoutineModel.create(req.body);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
@@ -21,6 +31,7 @@ const findRoutineByUser = async (req, res) => {
 };
 
 export const routineController = {
-  findRoutineById,
-  findRoutineByUser,
+  findById,
+  findAllByUser,
+  create
 };

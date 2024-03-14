@@ -25,7 +25,7 @@ const router = Router();
  *       404:
  *         description: Week not found.
  */
-router.get("/:week_id", weekController.findWeekById);
+router.get("/:week_id", weekController.findById);
 
 /**
  * @swagger
@@ -50,7 +50,7 @@ router.get("/:week_id", weekController.findWeekById);
  *       404:
  *         description: Week not found.
  */
-router.get("routine/:routine_id", weekController.findWeeksByRoutineId);
+router.get("routine/:routine_id", weekController.findAllByRoutineId);
 
 /**
  * @swagger
@@ -75,7 +75,7 @@ router.get("routine/:routine_id", weekController.findWeeksByRoutineId);
  *       404:
  *         description: Week not found or could not be deleted.
  */
-router.delete("/:week_id", weekController.deleteWeek);
+router.delete("/:week_id", weekController.deleteById);
 
 /**
  * @swagger
@@ -110,6 +110,6 @@ router.delete("/:week_id", weekController.deleteWeek);
  *       400:
  *         description: Bad request due to invalid input parameters.
  */
-router.post("/create", weekController.createWeek);
+router.post("/create", weekController.create);
 
 export default router;

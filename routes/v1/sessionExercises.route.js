@@ -28,7 +28,7 @@ const router = Router();
  */
 router.get(
   "/:session_id",
-  exerciseSessionController.findExercisesBySessionById
+  exerciseSessionController.findBySessionById
 );
 
 /**
@@ -56,7 +56,7 @@ router.get(
  */
 router.delete(
   "/:sessionexercise_id",
-  exerciseSessionController.deleteSessionExercise
+  exerciseSessionController.deleteById
 );
 
 /**
@@ -105,5 +105,5 @@ router.delete(
  *       400:
  *         description: Invalid input, object invalid.
  */
-router.post("/create", exerciseSessionController.createSessionExercise);
+router.post("/create", exerciseSessionController.create);
 export default router;
