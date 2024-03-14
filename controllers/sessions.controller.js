@@ -1,6 +1,6 @@
 import { SessionModel } from "../models/Session.model.js";
 
-const findSessionById = async (req, res) => {
+const findById = async (req, res) => {
   try {
     const id = req.params.session_id;
     const response = await SessionModel.findById(id);
@@ -10,7 +10,7 @@ const findSessionById = async (req, res) => {
   }
 };
 
-const findSessionsByWeekId = async (req, res) => {
+const findByWeekId = async (req, res) => {
   try {
     const id = req.params.week_id;
     const response = await SessionModel.findByWeekId(id);
@@ -20,7 +20,7 @@ const findSessionsByWeekId = async (req, res) => {
   }
 };
 
-const deleteSessionById = async (req, res) => {
+const deleteById = async (req, res) => {
   try {
     const id = req.params.session_id;
     const response = await SessionModel.deleteById(id);
@@ -31,7 +31,7 @@ const deleteSessionById = async (req, res) => {
 };
 
 export const sessionController = {
-  findSessionById,
-  findSessionsByWeekId,
-  deleteSessionById,
+  findById,
+  findByWeekId,
+  deleteById,
 };

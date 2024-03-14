@@ -1,6 +1,6 @@
 import { WeekModel } from "../models/Week.model.js";
 
-const findWeekById = async (req, res) => {
+const findById = async (req, res) => {
   try {
     const id = req.params.week_id;
     const response = await WeekModel.findById(id);
@@ -10,17 +10,17 @@ const findWeekById = async (req, res) => {
   }
 };
 
-const findWeeksByRoutineId = async (req, res) => {
+const findAllByRoutineId = async (req, res) => {
   try {
     const id = req.params.routine_id;
-    const response = await WeekModel.findByRoutineId(id);
+    const response = await WeekModel.findAllByRoutineId(id);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
   }
 };
 
-const deleteWeek = async (req, res) => {
+const deleteById = async (req, res) => {
   try {
     const id = req.params.week_id;
     const response = await WeekModel.deleteById(id);
@@ -30,10 +30,9 @@ const deleteWeek = async (req, res) => {
   }
 };
 
-const createWeek = async (req, res) => {
+const create = async (req, res) => {
   try {
-    const { routineId, name, description } = req.body;
-    const response = await WeekModel.findById(routineId, name, description);
+    const response = await WeekModel.create(req.body);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
@@ -41,8 +40,8 @@ const createWeek = async (req, res) => {
 };
 
 export const weekController = {
-  findWeekById,
-  findWeeksByRoutineId,
-  deleteWeek,
-  createWeek,
+  findById,
+  findAllByRoutineId,
+  deleteById,
+  create,
 };

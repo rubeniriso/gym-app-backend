@@ -25,7 +25,7 @@ const router = Router();
  *       404:
  *         description: User not found.
  */
-router.get("/:user_id", userController.findUserById);
+router.get("/:user_id", userController.findById);
 
 /**
  * @swagger
@@ -58,6 +58,34 @@ router.get("/:user_id", userController.findUserById);
  *       400:
  *         description: Missing parameter or email already in use.
  */
-router.post("/create", userController.createUser);
+router.post("/create", userController.create);
+
+/**
+ * @swagger
+ * /api/v1/users/make-routine-active:
+ *   put:
+ *     tags:
+ *       - Users
+ *     summary: Make a routine active
+ *     description: Makes a user"s routine active.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: number
+ *               routineId:
+ *                 type: number
+ *             required:
+ *               - userId
+ *               - routineId
+ *     responses:
+ *       200:
+ *         description: Routine made active.
+ */
+router.put("/make-routine-active", userController.makeRoutineActive);
 
 export default router;

@@ -3,16 +3,13 @@ import { pool } from "../db/connection.js";
 const findById = async (id) => {
   const query = "SELECT * FROM users WHERE user_id = $1;";
   const values = [id];
-  const result = await pool.query(query, values);
-  return result;
+  return await pool.query(query, values);
 };
 
-const createUser = async (name, email, hashedPassword) => {
-  const newUser = await pool.query(
-    "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *",
-    [name, email, hashedPassword]
-  );
-  return newUser;
+const create = async (name, email, hashedPassword) => {
+  const query = "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *"
+  values = [name, email, hashedPassword]
+  return await pool.query(query, values);
 };
 
 const emailExists = async (email) => {
@@ -22,10 +19,19 @@ const emailExists = async (email) => {
   return result.rows.length > 0;
 };
 
+const makeRoutineActive = async (routineData) => {
+  const values = ['routineId', 'userId'].map(key => routineData[key]);
+  const query = `UPDATE users
+    SET activeroutine_id = $1
+    WHERE user_id = $2`
+  const result = await pool.query(query, values)
+}
+
 // TODO: Add username column and check if username is already used.
 
 export const UserModel = {
   findById,
-  createUser,
+  create,
   emailExists,
+  makeRoutineActive
 };

@@ -25,7 +25,7 @@ const router = Router();
  *       404:
  *         description: Routine not found.
  */
-router.get("/:routine_id", routineController.findRoutineById);
+router.get("/:routine_id", routineController.findById);
 
 /**
  * @swagger
@@ -50,6 +50,40 @@ router.get("/:routine_id", routineController.findRoutineById);
  *       404:
  *         description: No routines found for the user.
  */
-router.get("/user/:user_id", routineController.findRoutineByUser);
+router.get("/user/:user_id", routineController.findAllByUser);
+
+/**
+ * @swagger
+ * /api/v1/routines/user:
+ *   post:
+ *     tags:
+ *       - Routines
+ *     summary: Creates a Routine for a User
+ *     description: Creates a Routine for a User associated with a specific user ID.
+ *     requestBody:
+ *       required: true
+ *       content:  
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               userId:
+ *                 type: integer
+ *             required:
+ *               - name
+ *               - userId
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of routines for the specified user.
+ *       400:
+ *         description: Some values are wrong.
+ */
+router.post("/user", routineController.create)
 
 export default router;

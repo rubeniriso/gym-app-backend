@@ -15,15 +15,13 @@ const deleteById = async (sessionId) => {
 };
 
 const create = async (sessionExerciseData) => {
-  const { name, sets, reps, weight, rir, session_id, exercise_id } =
-    sessionExerciseData;
+  const values = ['name', 'sets', 'reps', 'weight', 'rir', 'session_id', 'exercise_id'].map(key => sessionExerciseData[key]);
   const query = `
       INSERT INTO sessionexercise
       (name, sets, reps, weight, rir, session_id, exercise_id)
       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;
     `;
-  const values = [name, sets, reps, weight, rir, session_id, exercise_id];
-  const result = await pool.query(query, values);
+  return await pool.query(query, values);
 };
 
 export const SessionExerciseModel = {

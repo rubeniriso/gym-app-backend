@@ -7,7 +7,7 @@ const findById = async (id) => {
   return result;
 };
 
-const findByRoutineId = async (id) => {
+const findAllByRoutineId = async (id) => {
   const query = "SELECT * FROM weeks WHERE routine_id = $1";
   const values = [id];
   const result = await pool.query(query, values);
@@ -17,24 +17,22 @@ const findByRoutineId = async (id) => {
 const deleteById = async (id) => {
   const query = "DELETE FROM weeks WHERE week_id = $1";
   const values = [id];
-  const result = await pool.query(query, values);
-  return result;
+  return await pool.query(query, values);
 };
 
-const create = async (routineId, name, description) => {
+const create = async (weekData) => {
   const query = `
     INSERT INTO weeks (routine_id, name, description)
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
-  const values = [routineId, name, description];
-  const result = await pool.query(query, values);
-  return result;
+  const values = [weekData.routineId, weekData.name, weekData.description];
+  return await pool.query(query, values);
 };
 
 export const WeekModel = {
   findById,
-  findByRoutineId,
+  findAllByRoutineId,
   deleteById,
   create,
 };
