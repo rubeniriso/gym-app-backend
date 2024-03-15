@@ -16,8 +16,8 @@ const create = async (routineData) => {
   const values = ['name', 'description', 'userId'].map(key => routineData[key]);
   const query = `
       INSERT INTO routines
-      (name, description, user_id)
-      VALUES ($1, $2, $3) RETURNING *;
+      (name, description, user_id, system_id)
+      VALUES ($1, $2, $3, $4) RETURNING *;
     `;
   return await pool.query(query, values);
 };

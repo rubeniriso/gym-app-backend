@@ -24,7 +24,7 @@ const makeRoutineActive = async (routineData) => {
   const query = `UPDATE users
     SET activeroutine_id = $1
     WHERE user_id = $2`
-  const result = await pool.query(query, values)
+  return await pool.query(query, values)
 }
 
 // TODO: Add username column and check if username is already used.
