@@ -85,5 +85,37 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *         description: Some values are wrong.
  */
 router.post("/user", routineController.create)
+/**
+ * @swagger
+ * /api/v1/routines/update:
+ *   put:
+ *     tags:
+ *       - Routines
+ *     summary: Updates a Routine
+ *     description: Updates a Routine with a specific routine ID.
+ *     requestBody:
+ *       required: true
+ *       content:  
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               routine_id:
+ *                 type: number
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               system_id:
+ *                 type: number
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of routines for the specified user.
+ *       400:
+ *         description: Some values are wrong.
+ */
+router.put("/update", routineController.update)
 
 export default router;

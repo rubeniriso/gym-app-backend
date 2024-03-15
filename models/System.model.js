@@ -31,7 +31,6 @@ const create = async (systemData) => {
 };
 
 const update = async (systemData) => {
-  console.log(systemData)
   const values = ['name', 'description', 'icon_url', 'system_id'].map(key => systemData[key]);
   console.log(values)
   const query = `
