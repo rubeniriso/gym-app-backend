@@ -1,3 +1,4 @@
+import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import routes from "./routes/v1/index.route.js";
@@ -5,7 +6,9 @@ import { swaggerDocs as V1SwaggerDocs } from "./swagger/v1/swagger.js";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
+
 app.use("/api/v1", routes);
 
 const PORT = process.env.PORT || 5000;

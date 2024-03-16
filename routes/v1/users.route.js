@@ -26,6 +26,30 @@ const router = Router();
  *         description: User not found.
  */
 router.get("/:user_id", userController.findById);
+/**
+ * @swagger
+ * /api/v1/users/{user_id}/get-active-routine:
+ *   get:
+ *     tags:
+ *       - Users
+ *     summary: Get a User's active routine 
+ *     description: Retrieve a User's active routine using their ID.
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         description: Unique identifier of the user.
+ *         schema:
+ *           type: integer
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: User's active routine.
+ *       404:
+ *         description: User not found.
+ */
+router.get("/:user_id/get-active-routine", userController.getActiveRoutine);
 
 /**
  * @swagger

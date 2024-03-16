@@ -1,6 +1,6 @@
 import { SessionExerciseModel } from "../models/SessionExercise.model.js";
 
-const findBySessionById = async (req, res) => {
+const findBySessionId = async (req, res) => {
   try {
     const id = req.params.session_id;
     const response = await SessionExerciseModel.findBySessionId(id);
@@ -29,8 +29,8 @@ const create = async (req, res) => {
   }
 };
 
-export const exerciseSessionController = {
-  findBySessionById,
+export const sessionExerciseController = {
+  findBySessionId,
   deleteById,
   create,
 };

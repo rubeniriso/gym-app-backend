@@ -29,7 +29,7 @@ router.get("/:week_id", weekController.findById);
 
 /**
  * @swagger
- * /api/v1/routine/{routine_id}:
+ * /api/v1/weeks/routine/{routine_id}:
  *   get:
  *     tags:
  *       - Weeks
@@ -37,7 +37,7 @@ router.get("/:week_id", weekController.findById);
  *     description: Retrieve a week for given ID.
  *     parameters:
  *       - in: path
- *         name: week_id
+ *         name: routine_id
  *         required: true
  *         description: Unique identifier of the week.
  *         schema:
@@ -50,7 +50,7 @@ router.get("/:week_id", weekController.findById);
  *       404:
  *         description: Week not found.
  */
-router.get("routine/:routine_id", weekController.findAllByRoutineId);
+router.get("/routine/:routine_id", weekController.findAllByRoutineId);
 
 /**
  * @swagger

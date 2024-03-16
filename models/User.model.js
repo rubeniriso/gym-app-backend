@@ -7,8 +7,8 @@ const findById = async (id) => {
 };
 
 const create = async (name, email, hashedPassword) => {
+  const values = [name, email, hashedPassword]
   const query = "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *"
-  values = [name, email, hashedPassword]
   return await pool.query(query, values);
 };
 
@@ -23,9 +23,20 @@ const makeRoutineActive = async (routineData) => {
   const values = ['routineId', 'userId'].map(key => routineData[key]);
   const query = `UPDATE users
     SET activeroutine_id = $1
-    WHERE user_id = $2`
-  const result = await pool.query(query, values)
+    WHERE user_id = $2
+    RETURNING activeroutine_id`
+  return await pool.query(query, values)
 }
+
+const getActiveRoutine = async (user_id) => {
+  const values = [user_id]
+  const query = `SELECT activeroutine_id
+    FROM users
+    WHERE user_id = $1
+    `
+  return await pool.query(query, values)
+}
+
 
 // TODO: Add username column and check if username is already used.
 
@@ -33,5 +44,6 @@ export const UserModel = {
   findById,
   create,
   emailExists,
-  makeRoutineActive
+  makeRoutineActive,
+  getActiveRoutine
 };

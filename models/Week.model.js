@@ -26,7 +26,7 @@ const create = async (weekData) => {
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
-  const values = [weekData.routineId, weekData.name, weekData.description];
+  const values = [weekData.routine_id, weekData.name, weekData.description];
   return await pool.query(query, values);
 };
 

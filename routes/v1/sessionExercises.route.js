@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { exerciseSessionController } from "../../controllers/sessionExercise.controller.js";
+import { sessionExerciseController } from "../../controllers/sessionExercise.controller.js";
 
 const router = Router();
 
 /**
  * @swagger
- * /api/v1/sessionexercise/{session_id}:
+ * /api/v1/sessionexercises/{session_id}:
  *   get:
  *     tags:
  *       - SessionExercise
@@ -28,12 +28,12 @@ const router = Router();
  */
 router.get(
   "/:session_id",
-  exerciseSessionController.findBySessionById
+  sessionExerciseController.findBySessionId
 );
 
 /**
  * @swagger
- * /api/v1/sessionexercise/{sessionexercise_id}:
+ * /api/v1/sessionexercises/{sessionexercise_id}:
  *   delete:
  *     tags:
  *       - SessionExercise
@@ -56,12 +56,12 @@ router.get(
  */
 router.delete(
   "/:sessionexercise_id",
-  exerciseSessionController.deleteById
+  sessionExerciseController.deleteById
 );
 
 /**
  * @swagger
- * /api/v1/sessionexercise/create:
+ * /api/v1/sessionexercises/create:
  *   post:
  *     tags:
  *       - SessionExercise
@@ -105,5 +105,5 @@ router.delete(
  *       400:
  *         description: Invalid input, object invalid.
  */
-router.post("/create", exerciseSessionController.create);
+router.post("/create", sessionExerciseController.create);
 export default router;

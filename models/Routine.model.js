@@ -7,23 +7,44 @@ const findById = async (id) => {
 };
 
 const findAllByUser = async (userId) => {
-  const query = "SELECT * FROM routines WHERE user_id = $1;";
+  const query = `
+    SELECT routines.*, routinetypes.icon_url
+    FROM routines
+    JOIN routinetypes ON routines.routinetype_id = routinetypes.routinetype_id
+    WHERE user_id = $1;
+  `;
   const values = [userId];
   return await pool.query(query, values);
 };
 
 const create = async (routineData) => {
-  const values = ['name', 'description', 'userId'].map(key => routineData[key]);
+  const values = ['name', 'description', 'user_id', 'routinetype_id'].map(key => routineData[key]);
+  console.log(values)
   const query = `
       INSERT INTO routines
-      (name, description, user_id)
-      VALUES ($1, $2, $3) RETURNING *;
+      (name, description, user_id, routinetype_id)
+      VALUES ($1, $2, $3, $4) RETURNING *;
+    `;
+  return await pool.query(query, values);
+};
+const update = async (routineData) => {
+  const values = ['name', 'description', 'routinetype_id', 'routine_id'].map(key => routineData[key]);
+  const query = `
+      UPDATE routines
+      SET
+        name = $1,
+        description = $2,
+        routinetype_id = $3
+      WHERE routine_id = $4
+      RETURNING *;
     `;
   return await pool.query(query, values);
 };
 
+
 export const RoutineModel = {
   findById,
   findAllByUser,
-  create
+  create,
+  update
 };
