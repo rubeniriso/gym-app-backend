@@ -1,3 +1,4 @@
+// THIS FILE IS NOT BEING EXECUTED.
 // We reuse this import in order to have access to the `body` property in requests
 const express = require("express");
 
@@ -24,7 +25,7 @@ module.exports = (app) => {
     cors({
       credentials: true,
       origin: process.env.ORIGIN || "http://localhost:3000",
-      methods: 'GET,POST,PUT,DELETE',
+      methods: "GET,POST,PUT,DELETE",
     })
   );
 
