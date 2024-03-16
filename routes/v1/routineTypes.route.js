@@ -1,82 +1,82 @@
 import { Router } from "express";
-import { systemsController } from "../../controllers/systems.controller.js";
+import { routineTypesController } from "../../controllers/routineTypes.controller.js";
 
 const router = Router();
 /**
  * @swagger
- * /api/v1/systems:
+ * /api/v1/routineTypes:
  *   get:
  *     tags:
- *       - Systems
- *     summary: Returns all Systems
- *     description: Returns all Systems.
+ *       - RoutineTypes
+ *     summary: Returns all RoutineTypes
+ *     description: Returns all RoutineTypes.
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: The requested Systems.
+ *         description: The requested RoutineTypes.
  *       404:
  *         description: Resource not found.
  */
-router.get("/", systemsController.findAll);
+router.get("/", routineTypesController.findAll);
 /**
  * @swagger
- * /api/v1/systems/{system_id}:
+ * /api/v1/routineTypes/{routinetype_id}:
  *   get:
  *     tags:
- *       - Systems
- *     summary: Returns System for given ID
- *     description: Retrieve a System for given ID.
+ *       - RoutineTypes
+ *     summary: Returns RoutineType for given ID
+ *     description: Retrieve a RoutineType for given ID.
  *     parameters:
  *       - in: path
- *         name: system_id
+ *         name: routinetype_id
  *         required: true
- *         description: Unique identifier of the System.
+ *         description: Unique identifier of the RoutineType.
  *         schema:
  *           type: integer
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: The requested System or null if it doesn't exist.
+ *         description: The requested RoutineType or null if it doesn't exist.
  *       404:
  *         description: Resource not found.
  */
-router.get("/:system_id", systemsController.findById);
+router.get("/:routinetype_id", routineTypesController.findById);
 
 /**
  * @swagger
- * /api/v1/systems/{system_id}:
+ * /api/v1/routineTypes/{routinetype_id}:
  *   delete:
  *     tags:
- *       - Systems
- *     summary: Delete a System by ID
- *     description: Deletes a specific System using its unique identifier.
+ *       - RoutineTypes
+ *     summary: Delete a RoutineType by ID
+ *     description: Deletes a specific RoutineType using its unique identifier.
  *     parameters:
  *       - in: path
- *         name: system_id
+ *         name: routinetype_id
  *         required: true
- *         description: Unique identifier of the System to be deleted.
+ *         description: Unique identifier of the RoutineType to be deleted.
  *         schema:
  *           type: integer
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: System successfully deleted.
+ *         description: RoutineType successfully deleted.
  *       404:
  *         description: Resource not found or could not be deleted.
  */
-router.delete("/:system_id", systemsController.deleteById);
+router.delete("/:routinetype_id", routineTypesController.deleteById);
 
 /**
  * @swagger
- * /api/v1/systems/create:
+ * /api/v1/routineTypes/create:
  *   post:
  *     tags:
- *       - Systems
- *     summary: Create a new System
- *     description: Creates a new System with the given details.
+ *       - RoutineTypes
+ *     summary: Create a new RoutineType
+ *     description: Creates a new RoutineType with the given details.
  *     requestBody:
  *       required: true
  *       content:
@@ -98,20 +98,20 @@ router.delete("/:system_id", systemsController.deleteById);
  *       - application/json
  *     responses:
  *       201:
- *         description: New System successfully created.
+ *         description: New RoutineType successfully created.
  *       400:
  *         description: Bad request due to invalid input parameters.
  */
-router.post("/create", systemsController.create);
+router.post("/create", routineTypesController.create);
 
 /**
  * @swagger
- * /api/v1/systems/update:
+ * /api/v1/routineTypes/update:
  *   put:
  *     tags:
- *       - Systems
- *     summary: Updates an existing System
- *     description: Updates a System with the given details.
+ *       - RoutineTypes
+ *     summary: Updates an existing RoutineType
+ *     description: Updates a RoutineType with the given details.
  *     requestBody:
  *       required: true
  *       content:
@@ -119,7 +119,7 @@ router.post("/create", systemsController.create);
  *           schema:
  *             type: object
  *             properties:
- *               system_id:
+ *               routinetype_id:
  *                 type: number
  *               name:
  *                 type: string
@@ -128,15 +128,15 @@ router.post("/create", systemsController.create);
  *               icon_url:
  *                 type: string
  *             required:
- *               - system_id
+ *               - routinetype_id
  *     produces:
  *       - application/json
  *     responses:
  *       201:
- *         description: New System successfully created.
+ *         description: New RoutineType successfully created.
  *       400:
  *         description: Bad request due to invalid input parameters.
  */
-router.put("/update", systemsController.update);
+router.put("/update", routineTypesController.update);
 
 export default router;

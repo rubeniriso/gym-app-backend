@@ -73,6 +73,8 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *                 type: string
  *               userId:
  *                 type: integer
+ *               routinetype_id:
+ *                 type: integer
  *             required:
  *               - name
  *               - userId
@@ -106,7 +108,7 @@ router.post("/user", routineController.create)
  *                 type: string
  *               description:
  *                 type: string
- *               system_id:
+ *               routinetype_id:
  *                 type: number
  *     produces:
  *       - application/json

@@ -5,7 +5,7 @@ import sessionExercisesRoutes from "./sessionExercises.route.js";
 import sessionRoutes from "./sessions.route.js";
 import userRoutes from "./users.route.js";
 import weekRoutes from "./weeks.route.js";
-import systemRoutes from "./systems.route.js";
+import routineTypesRoutes from "./routineTypes.route.js";
 
 const router = express.Router();
 
@@ -15,6 +15,6 @@ router.use("/exercises", exerciseRoutes);
 router.use("/routines", routineRoutes);
 router.use("/users", userRoutes);
 router.use("/sessionexercises", sessionExercisesRoutes);
-router.use("/systems", systemRoutes);
+router.use("/routinetypes", routineTypesRoutes);
 
 export default router;

@@ -30,7 +30,15 @@ const create = async (req, res) => {
 const makeRoutineActive = async (req, res) => {
   try {
     const response = await UserModel.makeRoutineActive(req.body);
-    res.status(200).json(response);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const getActiveRoutine = async (req, res) => {
+  try {
+    const response = await UserModel.getActiveRoutine(req.params.user_id);
+    res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
   }
@@ -39,5 +47,6 @@ const makeRoutineActive = async (req, res) => {
 export const userController = {
   findById,
   create,
-  makeRoutineActive
+  makeRoutineActive,
+  getActiveRoutine
 };
