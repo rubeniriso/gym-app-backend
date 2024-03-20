@@ -19,7 +19,6 @@ const findAllByUser = async (userId) => {
 
 const create = async (routineData) => {
   const values = ['name', 'description', 'user_id', 'routinetype_id'].map(key => routineData[key]);
-  console.log(values)
   const query = `
       INSERT INTO routines
       (name, description, user_id, routinetype_id)

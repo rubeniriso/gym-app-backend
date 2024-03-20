@@ -54,7 +54,7 @@ router.get("/user/:user_id", routineController.findAllByUser);
 
 /**
  * @swagger
- * /api/v1/routines/user:
+ * /api/v1/routines/create:
  *   post:
  *     tags:
  *       - Routines
@@ -71,13 +71,13 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *                 type: string
  *               description:
  *                 type: string
- *               userId:
+ *               user_id:
  *                 type: integer
  *               routinetype_id:
  *                 type: integer
  *             required:
  *               - name
- *               - userId
+ *               - user_id
  *     produces:
  *       - application/json
  *     responses:
@@ -86,7 +86,7 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *       400:
  *         description: Some values are wrong.
  */
-router.post("/user", routineController.create)
+router.post("/create", routineController.create)
 /**
  * @swagger
  * /api/v1/routines/update:
