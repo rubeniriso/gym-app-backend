@@ -17,11 +17,12 @@ const findAllByUser = async (userId) => {
   return await pool.query(query, values);
 };
 
-const create = async (routineData) => {
-  const values = ['name', 'description', 'user_id', 'routinetype_id'].map(key => routineData[key]);
+const create = async (user_id, routineData) => {
+  const values = ['name', 'description', 'routinetype_id'].map(key => routineData[key]);
+  values.push(user_id)
   const query = `
       INSERT INTO routines
-      (name, description, user_id, routinetype_id)
+      (name, description, routinetype_id, user_id)
       VALUES ($1, $2, $3, $4) RETURNING *;
     `;
   return await pool.query(query, values);

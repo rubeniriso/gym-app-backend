@@ -22,7 +22,7 @@ const findAllByUser = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const response = await RoutineModel.create(req.body);
+    const response = await RoutineModel.create(req.params.user_id, req.body);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);

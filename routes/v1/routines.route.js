@@ -54,7 +54,7 @@ router.get("/user/:user_id", routineController.findAllByUser);
 
 /**
  * @swagger
- * /api/v1/routines/create:
+ * /api/v1/routines/create/{user_id}:
  *   post:
  *     tags:
  *       - Routines
@@ -86,7 +86,7 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *       400:
  *         description: Some values are wrong.
  */
-router.post("/create", routineController.create)
+router.post("/create/:user_id", routineController.create)
 /**
  * @swagger
  * /api/v1/routines/update:
