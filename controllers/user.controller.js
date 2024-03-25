@@ -38,7 +38,7 @@ const makeRoutineActive = async (req, res) => {
 const getActiveRoutine = async (req, res) => {
   try {
     const response = await UserModel.getActiveRoutine(req.params.user_id);
-    res.status(200).json(response.rows);
+    res.status(200).json(response);
   } catch (error) {
     console.log(error);
   }

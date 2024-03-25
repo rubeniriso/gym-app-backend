@@ -8,7 +8,7 @@ const findById = async (id) => {
 
 const findAllByUser = async (userId) => {
   const query = `
-    SELECT routines.*, routinetypes.icon_url
+    SELECT routines.*, routinetypes.icon_url, routinetypes.icon_alt_text
     FROM routines
     JOIN routinetypes ON routines.routinetype_id = routinetypes.routinetype_id
     WHERE user_id = $1;
@@ -27,8 +27,9 @@ const create = async (user_id, routineData) => {
     `;
   return await pool.query(query, values);
 };
-const update = async (routineData) => {
-  const values = ['name', 'description', 'routinetype_id', 'routine_id'].map(key => routineData[key]);
+const update = async (routine_id, routineData) => {
+  const values = ['name', 'description', 'routinetype_id'].map(key => routineData[key]);
+  values.push(routine_id)
   const query = `
       UPDATE routines
       SET
@@ -40,11 +41,25 @@ const update = async (routineData) => {
     `;
   return await pool.query(query, values);
 };
-
+const deleteById = async (id) => {
+  const query = "DELETE FROM routines WHERE routine_id = $1";
+  const values = [id];
+  try {
+    const result = await pool.query(query, values);
+    if (result.rowCount > 0) {
+      return { success: true };
+    } else {
+      return { success: false, message: 'Not found.' };
+    }
+  } catch (error) {
+      throw new Error('Server error');
+  }
+};
 
 export const RoutineModel = {
   findById,
   findAllByUser,
   create,
-  update
+  update,
+  deleteById
 };

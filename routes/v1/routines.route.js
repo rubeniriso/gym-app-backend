@@ -118,6 +118,30 @@ router.post("/create/:user_id", routineController.create)
  *       400:
  *         description: Some values are wrong.
  */
-router.put("/update", routineController.update)
+router.put("/update/:routine_id", routineController.update)
+/**
+ * @swagger
+ * /api/v1/routines/{routine_id}:
+ *   delete:
+ *     tags:
+ *       - Routines
+ *     summary: Deletes a Routine
+ *     description: Updates a Routine with a specific routine ID.
+ *     parameters:
+ *       - in: path
+ *         name: routine_id
+ *         required: true
+ *         description: Unique identifier of the routine to delete.
+ *         schema:
+ *           type: integer
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: True if it got deleted, false if it didn't.
+ *       400:
+ *         description: Some values are wrong.
+ */
+router.delete("/:routine_id", routineController.deleteById)
 
 export default router;

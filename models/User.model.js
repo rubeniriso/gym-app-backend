@@ -20,11 +20,21 @@ const emailExists = async (email) => {
 };
 
 const makeRoutineActive = async (routineData) => {
-  const values = ['routineId', 'userId'].map(key => routineData[key]);
-  const query = `UPDATE users
+  const activeRoutine = await getActiveRoutine(routineData.userId)
+  var values, query;
+  if (activeRoutine == routineData.routineId){
+    values = ['userId'].map(key => routineData[key]);
+    query = `UPDATE users
+    SET activeroutine_id = null
+    WHERE user_id = $1
+    RETURNING activeroutine_id`
+  } else{
+    values = ['routineId', 'userId'].map(key => routineData[key]);
+    query = `UPDATE users
     SET activeroutine_id = $1
     WHERE user_id = $2
     RETURNING activeroutine_id`
+  }
   return await pool.query(query, values)
 }
 
@@ -34,7 +44,8 @@ const getActiveRoutine = async (user_id) => {
     FROM users
     WHERE user_id = $1
     `
-  return await pool.query(query, values)
+  const result = await pool.query(query, values)
+  return result.rows[0]['activeroutine_id']
 }
 
 
