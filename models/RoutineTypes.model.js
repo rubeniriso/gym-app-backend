@@ -1,28 +1,30 @@
 import { pool } from "../db/connection.js";
 
 const findById = async (id) => {
-  const query = "SELECT * FROM routinetypes WHERE routinetype_id = $1";
+  const query = "SELECT * FROM routinetype WHERE routinetype_id = $1";
   const values = [id];
   const result = await pool.query(query, values);
-  console.log(result)
+  console.log(result);
   return result;
 };
 
 const findAll = async () => {
-  const query = "SELECT * FROM routinetypes";
+  const query = "SELECT * FROM routinetype";
   return await pool.query(query);
 };
 
 const deleteById = async (id) => {
-  const query = "DELETE FROM routinetypes WHERE routinetype_id = $1";
+  const query = "DELETE FROM routinetype WHERE routinetype_id = $1";
   const values = [id];
   return await pool.query(query, values);
 };
 
 const create = async (systemData) => {
-  const values = ['name', 'description', 'icon_url'].map(key => systemData[key]);
+  const values = ["name", "description", "icon_url"].map(
+    (key) => systemData[key]
+  );
   const query = `
-    INSERT INTO routinetypes (name, description, icon_url)
+    INSERT INTO routinetype (name, description, icon_url)
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
@@ -31,10 +33,11 @@ const create = async (systemData) => {
 };
 
 const update = async (systemData) => {
-  const values = ['name', 'description', 'icon_url', 'routinetype_id'].map(key => systemData[key]);
-  console.log(values)
+  const values = ["name", "description", "icon_url", "routinetype_id"].map(
+    (key) => systemData[key]
+  );
   const query = `
-    UPDATE routinetypes 
+    UPDATE routinetype 
     SET 
       name = $1, 
       description = $2,
@@ -51,5 +54,5 @@ export const RoutineTypesModel = {
   findAll,
   deleteById,
   create,
-  update
+  update,
 };

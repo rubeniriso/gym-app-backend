@@ -1,9 +1,9 @@
-import { SessionModel } from "../models/Session.model.js";
+import { TrainingDayModel } from "../models/TrainingDay.model.js";
 
 const findById = async (req, res) => {
   try {
-    const id = req.params.session_id;
-    const response = await SessionModel.findById(id);
+    const id = req.params.trainingday_id;
+    const response = await TrainingDayModel.findById(id);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
@@ -13,7 +13,7 @@ const findById = async (req, res) => {
 const findByWeekId = async (req, res) => {
   try {
     const id = req.params.week_id;
-    const response = await SessionModel.findByWeekId(id);
+    const response = await TrainingDayModel.findByWeekId(id);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
@@ -22,15 +22,15 @@ const findByWeekId = async (req, res) => {
 
 const deleteById = async (req, res) => {
   try {
-    const id = req.params.session_id;
-    const response = await SessionModel.deleteById(id);
+    const id = req.params.trainingday_id;
+    const response = await TrainingDayModel.deleteById(id);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const sessionController = {
+export const trainingDayController = {
   findById,
   findByWeekId,
   deleteById,

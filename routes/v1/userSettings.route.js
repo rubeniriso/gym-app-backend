@@ -1,38 +1,38 @@
 import { Router } from "express";
-import { userController } from "../../controllers/user.controller.js";
+import { userSettingsController } from "../../controllers/userSettings.controller.js";
 
 const router = Router();
 /**
  * @swagger
- * /api/v1/users/{user_id}:
- *   get:
+ * /api/v1/usersettings/{user_id}/create:
+ *   post:
  *     tags:
- *       - Users
- *     summary: Get a User by ID
- *     description: Retrieve details of a specific user using their ID.
+ *       - UserSettings
+ *     summary: Creates user settings
+ *     description: Creates user settings when signin up.
  *     parameters:
  *       - in: path
  *         name: user_id
  *         required: true
  *         description: Unique identifier of the user.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: Detailed information about the user.
+ *         description: OK.
  *       404:
  *         description: User not found.
  */
-router.get("/:user_id", userController.findById);
+router.post("/:user_id/create", userSettingsController.createUserSettings);
 /**
  * @swagger
- * /api/v1/users/{user_id}/get-active-routine:
+ * /api/v1/usersettings/{user_id}/get-active-routine:
  *   get:
  *     tags:
- *       - Users
- *     summary: Get a User's active routine 
+ *       - UserSettings
+ *     summary: Get a User's active routine
  *     description: Retrieve a User's active routine using their ID.
  *     parameters:
  *       - in: path
@@ -40,7 +40,7 @@ router.get("/:user_id", userController.findById);
  *         required: true
  *         description: Unique identifier of the user.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -49,17 +49,19 @@ router.get("/:user_id", userController.findById);
  *       404:
  *         description: User not found.
  */
-router.get("/:user_id/get-active-routine", userController.getActiveRoutine);
-
+router.get(
+  "/:user_id/get-active-routine",
+  userSettingsController.getActiveRoutine
+);
 
 /**
  * @swagger
- * /api/v1/users/make-routine-active:
+ * /api/v1/usersettings/make-routine-active:
  *   put:
  *     tags:
- *       - Users
+ *       - UserSettings
  *     summary: Make a routine active
- *     description: Makes a user"s routine active.
+ *     description: Makes a users routine active.
  *     requestBody:
  *       required: true
  *       content:
@@ -68,7 +70,7 @@ router.get("/:user_id/get-active-routine", userController.getActiveRoutine);
  *             type: object
  *             properties:
  *               userId:
- *                 type: number
+ *                 type: string
  *               routineId:
  *                 type: number
  *             required:
@@ -78,6 +80,6 @@ router.get("/:user_id/get-active-routine", userController.getActiveRoutine);
  *       200:
  *         description: Routine made active.
  */
-router.put("/make-routine-active", userController.makeRoutineActive);
+router.put("/make-routine-active", userSettingsController.makeRoutineActive);
 
 export default router;

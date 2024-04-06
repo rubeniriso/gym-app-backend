@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { sessionExerciseController } from "../../controllers/sessionExercise.controller.js";
+import { trainingDayExerciseController } from "../../controllers/trainingDayExercise.controller.js";
 
 const router = Router();
 
 /**
  * @swagger
- * /api/v1/sessionexercises/{session_id}:
+ * /api/v1/trainingdayexercises/{session_id}:
  *   get:
  *     tags:
- *       - SessionExercise
- *     summary: Get a SessionExercise by session ID
+ *       - TrainingDayExercise
+ *     summary: Get a TrainingDayExercise by session ID
  *     description: Retrieve details of the exercises for a specific session.
  *     parameters:
  *       - in: path
@@ -24,24 +24,24 @@ const router = Router();
  *       200:
  *         description: Detailed information about the session exercise.
  *       404:
- *         description: SessionExercise not found.
+ *         description: TrainingDayExercise not found.
  */
 router.get(
-  "/:session_id",
-  sessionExerciseController.findBySessionId
+  "/:trainingday_id",
+  trainingDayExerciseController.findByTrainingDayId
 );
 
 /**
  * @swagger
- * /api/v1/sessionexercises/{sessionexercise_id}:
+ * /api/v1/trainingdayexercises/{trainingdayexercise_id}:
  *   delete:
  *     tags:
- *       - SessionExercise
- *     summary: Delete a SessionExercise by ID
+ *       - TrainingDayExercise
+ *     summary: Delete a TrainingDayExercise by ID
  *     description: Delete a specific session exercise using its ID.
  *     parameters:
  *       - in: path
- *         name: sessionexercise_id
+ *         name: trainingdayexercise_id
  *         required: true
  *         description: Unique identifier of the session exercise to be deleted.
  *         schema:
@@ -50,23 +50,23 @@ router.get(
  *       - application/json
  *     responses:
  *       200:
- *         description: SessionExercise successfully deleted.
+ *         description: TrainingDayExercise successfully deleted.
  *       404:
- *         description: SessionExercise not found or could not be deleted.
+ *         description: TrainingDayExercise not found or could not be deleted.
  */
 router.delete(
-  "/:sessionexercise_id",
-  sessionExerciseController.deleteById
+  "/:trainingdayexercise_id",
+  trainingDayExerciseController.deleteById
 );
 
 /**
  * @swagger
- * /api/v1/sessionexercises/create:
+ * /api/v1/trainingdayexercises/create:
  *   post:
  *     tags:
- *       - SessionExercise
- *     summary: Create a new SessionExercise
- *     description: Create a new session exercise with the provided session and exercise details.
+ *       - TrainingDayExercise
+ *     summary: Create a new TrainingDayExercise
+ *     description: Create a new Training day exercise with the provided training day and exercise details.
  *     requestBody:
  *       required: true
  *       content:
@@ -91,10 +91,6 @@ router.delete(
  *                 type: integer
  *             required:
  *               - name
- *               - sets
- *               - reps
- *               - weight
- *               - rir
  *               - session_id
  *               - exercise_id
  *     produces:
@@ -105,5 +101,5 @@ router.delete(
  *       400:
  *         description: Invalid input, object invalid.
  */
-router.post("/create", sessionExerciseController.create);
+router.post("/create", trainingDayExerciseController.create);
 export default router;
