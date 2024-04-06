@@ -1,7 +1,6 @@
 import { UserSettingsModel } from "../models/UserSettings.model.js";
 
 const createUserSettings = async (req, res) => {
-  console.log("hehe");
   try {
     const response = await UserSettingsModel.createUserSettings(
       req.params.user_id

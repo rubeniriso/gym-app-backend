@@ -40,13 +40,11 @@ const makeRoutineActive = async (routineData) => {
 
 const getActiveRoutine = async (user_id) => {
   const values = [user_id];
-  console.log(user_id);
   const query = `SELECT activeroutine
     FROM usersettings
     WHERE user_id = $1
     `;
   const result = await pool.query(query, values);
-  console.log(result);
   return result.rows[0]["activeroutine"];
 };
 
