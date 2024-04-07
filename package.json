@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "npm run open-browser && nodemon index.js",
     "start": "node index.js",
-    "open-browser": "xdg-open http://localhost:5002/api/v1/docs"
+    "open-browser": "xdg-open http://localhost:5002/api/v1/docs",
+    "asd": "npm run open-browser-linux && nodemon index.js",
+    "open-browser-linux": "gnome-open http://localhost:5002/api/v1/docs"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",
