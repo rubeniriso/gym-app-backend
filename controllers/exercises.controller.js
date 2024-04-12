@@ -1,5 +1,14 @@
 import { ExerciseModel } from "../models/Exercise.model.js";
 
+const findAll = async (req, res) => {
+  try {
+    const response = await ExerciseModel.findAll();
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const findExerciseById = async (req, res) => {
   try {
     const id = req.params.exercise_id;
@@ -45,4 +54,5 @@ export const exerciseController = {
   findExerciseByName,
   findExerciseByBodyPart,
   findExerciseByEquipment,
+  findAll,
 };

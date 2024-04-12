@@ -39,10 +39,9 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "usersettings" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "user_id" TEXT NOT NULL,
-    "theme" INTEGER NOT NULL,
-    "activeroutine" TEXT,
+    "activeroutine" UUID,
 
     CONSTRAINT "usersettings_pkey" PRIMARY KEY ("id")
 );
@@ -55,14 +54,47 @@ CREATE TABLE "VerificationToken" (
 );
 
 -- CreateTable
+CREATE TABLE "bodypart" (
+    "bodypart_id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "name" VARCHAR(100) NOT NULL,
+
+    CONSTRAINT "bodypart_pkey" PRIMARY KEY ("bodypart_id")
+);
+
+-- CreateTable
+CREATE TABLE "equipment" (
+    "equipment_id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+
+    CONSTRAINT "equipment_pkey" PRIMARY KEY ("equipment_id")
+);
+
+-- CreateTable
+CREATE TABLE "muscle" (
+    "muscle_id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "name" VARCHAR(100) NOT NULL,
+    "bodypart_id" UUID NOT NULL,
+
+    CONSTRAINT "muscle_pkey" PRIMARY KEY ("muscle_id")
+);
+
+-- CreateTable
+CREATE TABLE "muscleexercise" (
+    "muscleexercise_id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "muscle_id" UUID NOT NULL,
+    "exercise_id" UUID NOT NULL,
+
+    CONSTRAINT "muscleexercise_pkey" PRIMARY KEY ("muscleexercise_id")
+);
+
+-- CreateTable
 CREATE TABLE "exercise" (
-    "exercise_id" TEXT NOT NULL,
+    "exercise_id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" VARCHAR(100),
-    "body_part" VARCHAR(100),
     "equipment" VARCHAR(100),
     "gif_url" VARCHAR(255),
-    "target" VARCHAR(100),
-    "secondary_muscles" TEXT[],
+    "primarymuscle_id" UUID NOT NULL,
     "instructions" TEXT[],
 
     CONSTRAINT "exercise_pkey" PRIMARY KEY ("exercise_id")
@@ -70,18 +102,18 @@ CREATE TABLE "exercise" (
 
 -- CreateTable
 CREATE TABLE "routine" (
-    "routine_id" TEXT NOT NULL,
+    "routine_id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" VARCHAR(100) NOT NULL,
     "description" TEXT,
     "user_id" TEXT NOT NULL,
-    "routinetype_id" TEXT NOT NULL,
+    "routinetype_id" UUID NOT NULL,
 
     CONSTRAINT "routine_pkey" PRIMARY KEY ("routine_id")
 );
 
 -- CreateTable
 CREATE TABLE "routinetype" (
-    "routinetype_id" TEXT NOT NULL,
+    "routinetype_id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" VARCHAR(255) NOT NULL,
     "description" TEXT,
     "icon_url" TEXT NOT NULL,
@@ -92,34 +124,34 @@ CREATE TABLE "routinetype" (
 
 -- CreateTable
 CREATE TABLE "trainingdayexercise" (
-    "trainingdayexercise_id" TEXT NOT NULL,
+    "trainingdayexercise_id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" VARCHAR(100) NOT NULL,
     "sets" INTEGER,
     "reps" INTEGER,
     "weight" INTEGER,
     "rir" INTEGER,
-    "exercise_id" TEXT NOT NULL,
-    "trainingday_id" TEXT NOT NULL,
+    "exercise_id" UUID NOT NULL,
+    "trainingday_id" UUID NOT NULL,
 
     CONSTRAINT "trainingdayexercise_pkey" PRIMARY KEY ("trainingdayexercise_id")
 );
 
 -- CreateTable
 CREATE TABLE "trainingday" (
-    "trainingday_id" TEXT NOT NULL,
+    "trainingday_id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" VARCHAR(100) NOT NULL,
     "description" TEXT,
-    "week_id" TEXT,
+    "week_id" UUID,
 
     CONSTRAINT "trainingday_pkey" PRIMARY KEY ("trainingday_id")
 );
 
 -- CreateTable
 CREATE TABLE "week" (
-    "week_id" TEXT NOT NULL,
+    "week_id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" VARCHAR(100) NOT NULL,
     "description" TEXT,
-    "routine_id" TEXT NOT NULL,
+    "routine_id" UUID NOT NULL,
 
     CONSTRAINT "week_pkey" PRIMARY KEY ("week_id")
 );
@@ -132,6 +164,9 @@ CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "usersettings_user_id_key" ON "usersettings"("user_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token");
@@ -150,6 +185,18 @@ ALTER TABLE "usersettings" ADD CONSTRAINT "usersettings_activeroutine_fkey" FORE
 
 -- AddForeignKey
 ALTER TABLE "usersettings" ADD CONSTRAINT "usersettings_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "muscle" ADD CONSTRAINT "muscle_bodypart_id_fkey" FOREIGN KEY ("bodypart_id") REFERENCES "bodypart"("bodypart_id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "muscleexercise" ADD CONSTRAINT "muscleexercise_muscle_id_fkey" FOREIGN KEY ("muscle_id") REFERENCES "muscle"("muscle_id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "muscleexercise" ADD CONSTRAINT "muscleexercise_exercise_id_fkey" FOREIGN KEY ("exercise_id") REFERENCES "exercise"("exercise_id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "exercise" ADD CONSTRAINT "exercise_primarymuscle_id_fkey" FOREIGN KEY ("primarymuscle_id") REFERENCES "muscle"("muscle_id") ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "routine" ADD CONSTRAINT "routine_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

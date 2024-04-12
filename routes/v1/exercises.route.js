@@ -4,6 +4,23 @@ import { exerciseController } from "../../controllers/exercises.controller.js";
 const router = Router();
 /**
  * @swagger
+ * /api/v1/exercises/:
+ *   get:
+ *     tags:
+ *       - Exercises
+ *     summary: Gets all exercises
+ *     description: Retrieve details of a all exercises
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Detailed information about the exercises.
+ *       404:
+ *         description: Exercise not found.
+ */
+router.get("/", exerciseController.findAll);
+/**
+ * @swagger
  * /api/v1/exercises/{exercise_id}:
  *   get:
  *     tags:

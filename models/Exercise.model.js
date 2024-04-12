@@ -1,5 +1,11 @@
 import { pool } from "../db/connection.js";
 
+const findAll = async () => {
+  const query = "SELECT * FROM exercise";
+  const result = await pool.query(query);
+  return result;
+};
+
 const findById = async (id) => {
   const query = "SELECT * FROM exercise where exercise_id = $1;";
   const values = [id];
@@ -35,4 +41,5 @@ export const ExerciseModel = {
   findByName,
   findByBodyPart,
   findByEquipment,
+  findAll,
 };
