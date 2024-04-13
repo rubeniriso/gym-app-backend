@@ -1,6 +1,7 @@
 import "dotenv/config";
 import pkg from "pg";
 const { Pool } = pkg;
+import { initialData } from "./initialData.js";
 
 // pools will use environment variables
 // for connection information
@@ -11,17 +12,30 @@ export const pool = new Pool({
 try {
   await pool.query("SELECT NOW()");
   console.log("DATABASE CONNECTED");
-  const query = `
-    SELECT count(exercise_id)
-    FROM exercise
-  `;
-  const result = await pool.query(query);
-  if (result.rows[0]["count"] == 0) fetchDataAndInsert();
+  insertInitialData();
 } catch (error) {
   console.log(error);
 }
-
-async function fetchDataAndInsert() {
+async function insertInitialData() {
+  console.log("data insert");
+  const query2 = `
+      SELECT count(bodypart_id)
+      FROM bodypart
+    `;
+  const result = await pool.query(query2);
+  if (result.rows[0]["count"] != 0) {
+    console.log("skipping data insert");
+    return;
+  }
+  console.log("inserting data");
+  try {
+    await pool.query(initialData.getInitialDataQuery());
+    console.log("inserted data");
+  } catch (error) {
+    console.log(error);
+  }
+}
+async function fetchExerciseDataAndInsert() {
   console.log("Inserting Exercise data");
   const url = "https://exercisedb.p.rapidapi.com/exercises?limit=50001";
   const options = {
@@ -32,6 +46,12 @@ async function fetchDataAndInsert() {
     },
   };
   try {
+    const query2 = `
+      SELECT count(exercise_id)
+      FROM exercise
+    `;
+    const result = await pool.query(query2);
+    if (result.rows[0]["count"] != 0) return;
     // Fetching data from API
     const response = await fetch(url, options);
     const exercises = await response.json();
