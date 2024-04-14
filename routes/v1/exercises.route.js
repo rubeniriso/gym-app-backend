@@ -33,7 +33,7 @@ router.get("/", exerciseController.findAll);
  *         required: true
  *         description: Unique identifier of the exercise.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
