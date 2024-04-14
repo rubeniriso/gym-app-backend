@@ -20,13 +20,13 @@ const deleteById = async (id) => {
   return await pool.query(query, values);
 };
 
-const create = async (weekData) => {
+const create = async (routine_id, weekData) => {
   const query = `
     INSERT INTO week (routine_id, name, description)
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
-  const values = [weekData.routine_id, weekData.name, weekData.description];
+  const values = [routine_id, weekData.name, weekData.description];
   return await pool.query(query, values);
 };
 const copy = async (weekData) => {

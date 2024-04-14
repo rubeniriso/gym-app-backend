@@ -5,12 +5,10 @@ const getUserSettings = async (userId) => {
 	FROM usersettings
   WHERE user_id = $1`;
   const result = await pool.query(query, values);
-  console.log(result.rows[0]["count"] > 0);
   return result.rows[0]["count"] > 0;
 };
 const createUserSettings = async (userId) => {
   const values = [userId];
-  console.log(userId);
   if (!(await getUserSettings(userId))) {
     const query = `INSERT INTO usersettings(
       user_id)
@@ -47,7 +45,6 @@ const getActiveRoutine = async (user_id) => {
     WHERE user_id = $1
     `;
   const result = await pool.query(query, values);
-  console.log(result.rows[0]["activeroutine"]);
   return result.rows[0]["activeroutine"];
 };
 

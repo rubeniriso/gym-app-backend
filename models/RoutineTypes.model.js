@@ -4,7 +4,6 @@ const findById = async (id) => {
   const query = "SELECT * FROM routinetype WHERE routinetype_id = $1";
   const values = [id];
   const result = await pool.query(query, values);
-  console.log(result);
   return result;
 };
 

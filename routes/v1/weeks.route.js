@@ -79,12 +79,19 @@ router.delete("/:week_id", weekController.deleteById);
 
 /**
  * @swagger
- * /api/v1/weeks/create:
+ * /api/v1/weeks/create/{routine_id}:
  *   post:
  *     tags:
  *       - Weeks
  *     summary: Create a new Week
  *     description: Creates a new week with the given details.
+ *     parameters:
+ *       - in: path
+ *         name: routine_id
+ *         required: true
+ *         description: Identifier of the routine.
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -92,14 +99,11 @@ router.delete("/:week_id", weekController.deleteById);
  *           schema:
  *             type: object
  *             properties:
- *               routine_id:
- *                 type: string
  *               name:
  *                 type: string
  *               description:
  *                 type: string
  *             required:
- *               - routine_id
  *               - name
  *               - description
  *     produces:
@@ -110,6 +114,6 @@ router.delete("/:week_id", weekController.deleteById);
  *       400:
  *         description: Bad request due to invalid input parameters.
  */
-router.post("/create", weekController.create);
+router.post("/create/:routine_id", weekController.create);
 
 export default router;

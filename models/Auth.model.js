@@ -5,7 +5,6 @@ const emailExists = async (email) => {
   const query = "SELECT * FROM users WHERE email = $1;";
   const values = [email];
   const result = await pool.query(query, values);
-  console.log(result.rows.length > 0);
   return result.rows.length > 0;
 };
 
