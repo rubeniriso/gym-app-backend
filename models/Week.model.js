@@ -29,7 +29,16 @@ const create = async (weekData) => {
   const values = [weekData.routine_id, weekData.name, weekData.description];
   return await pool.query(query, values);
 };
-
+const copy = async (weekData) => {
+  const query = `
+    INSERT INTO week (routine_id, name, description)
+    SELECT routine_id, name, description
+    FROM week
+    WHERE week_id = $1
+  `;
+  const values = [weekData.routine_id, weekData.name, weekData.description];
+  return await pool.query(query, values);
+};
 export const WeekModel = {
   findById,
   findAllByRoutineId,

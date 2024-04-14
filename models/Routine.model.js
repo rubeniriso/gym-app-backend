@@ -45,6 +45,15 @@ const update = async (routine_id, routineData) => {
     `;
   return await pool.query(query, values);
 };
+const copy = async (routine_id) => {
+  const values = [routine_id];
+  const query = `
+  INSERT INTO routines (name, description, user_id, routinetype_id)
+  SELECT routine_id, name, description, user_id, routinetype_id
+  FROM routines
+  WHERE routine_id = $1;`;
+  return await pool.query(query, values);
+};
 const deleteById = async (id) => {
   const query = "DELETE FROM routine WHERE routine_id = $1";
   const values = [id];
