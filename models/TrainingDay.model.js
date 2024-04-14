@@ -22,8 +22,20 @@ const deleteById = async (id) => {
   return result;
 };
 
+const create = async (week_id, trainingDayData) => {
+  const query = `
+    INSERT INTO trainingday (name, description, week_id)
+    VALUES ($1, $2, $3)
+    RETURNING *;
+  `;
+  console.log(week_id, trainingDayData);
+  const values = [trainingDayData.name, trainingDayData.description, week_id];
+  return await pool.query(query, values);
+};
+
 export const TrainingDayModel = {
   findById,
   findByWeekId,
   deleteById,
+  create
 };

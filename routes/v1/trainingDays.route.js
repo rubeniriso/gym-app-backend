@@ -77,4 +77,43 @@ router.get("/week/:week_id", trainingDayController.findByWeekId);
  */
 router.delete("/:trainingday_id", trainingDayController.deleteById);
 
+/**
+ * @swagger
+ * /api/v1/trainingDays/create/{week_id}:
+ *   post:
+ *     tags:
+ *       - TrainingDays
+ *     summary: Create a new TrainingDay
+ *     description: Creates a new trainingDay with the given details.
+ *     parameters:
+ *       - in: path
+ *         name: week_id
+ *         required: true
+ *         description: Identifier of the week.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - description
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       201:
+ *         description: New week successfully created.
+ *       400:
+ *         description: Bad request due to invalid input parameters.
+ */
+router.post("/create/:week_id", trainingDayController.create);
+
 export default router;
