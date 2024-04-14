@@ -16,7 +16,7 @@ const router = Router();
  *         required: true
  *         description: Unique identifier of the week.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -41,7 +41,7 @@ router.get("/:week_id", weekController.findById);
  *         required: true
  *         description: Unique identifier of the week.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -66,7 +66,7 @@ router.get("/routine/:routine_id", weekController.findAllByRoutineId);
  *         required: true
  *         description: Unique identifier of the week to be deleted.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -93,7 +93,7 @@ router.delete("/:week_id", weekController.deleteById);
  *             type: object
  *             properties:
  *               routine_id:
- *                 type: integer
+ *                 type: string
  *               name:
  *                 type: string
  *               description:

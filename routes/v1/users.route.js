@@ -16,7 +16,7 @@ const router = Router();
  *         required: true
  *         description: Unique identifier of the user.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -32,7 +32,7 @@ router.get("/:user_id", userController.findById);
  *   get:
  *     tags:
  *       - Users
- *     summary: Get a User's active routine 
+ *     summary: Get a User's active routine
  *     description: Retrieve a User's active routine using their ID.
  *     parameters:
  *       - in: path
@@ -40,7 +40,7 @@ router.get("/:user_id", userController.findById);
  *         required: true
  *         description: Unique identifier of the user.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -50,7 +50,6 @@ router.get("/:user_id", userController.findById);
  *         description: User not found.
  */
 router.get("/:user_id/get-active-routine", userController.getActiveRoutine);
-
 
 /**
  * @swagger

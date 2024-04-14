@@ -49,7 +49,7 @@ model User {
 }
 
 model usersettings {
-  id            Int      @id @default(autoincrement())
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_id       String   @unique
   //theme         Int
   activeroutine String?  @db.Uuid
@@ -80,7 +80,7 @@ model equipment {
 model muscle {
   muscle_id      String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name           String           @db.VarChar(100)
-  description    String?          @db.VarChar(100)
+  description    String
   bodypart_id    String           @db.Uuid
   bodypart       bodypart         @relation(fields: [bodypart_id], references: [bodypart_id], onDelete: Cascade, onUpdate: NoAction)
   exercise       exercise[]

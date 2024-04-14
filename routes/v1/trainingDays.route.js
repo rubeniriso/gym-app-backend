@@ -16,7 +16,7 @@ const router = Router();
  *         required: true
  *         description: Unique identifier of the trainingday.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -41,7 +41,7 @@ router.get("/:trainingday_id", trainingDayController.findById);
  *         required: true
  *         description: Unique identifier of the week to retrieve trainingDays for.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -66,7 +66,7 @@ router.get("/week/:week_id", trainingDayController.findByWeekId);
  *         required: true
  *         description: Unique identifier of the trainingday to be deleted.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:

@@ -45,7 +45,7 @@ router.get(
  *         required: true
  *         description: Unique identifier of the session exercise to be deleted.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -86,9 +86,9 @@ router.delete(
  *               rir:
  *                 type: integer
  *               session_id:
- *                 type: integer
+ *                 type: string
  *               exercise_id:
- *                 type: integer
+ *                 type: string
  *             required:
  *               - name
  *               - session_id

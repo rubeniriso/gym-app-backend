@@ -62,7 +62,7 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *     description: Creates a Routine for a User associated with a specific user ID.
  *     requestBody:
  *       required: true
- *       content:  
+ *       content:
  *         application/json:
  *           schema:
  *             type: object
@@ -72,9 +72,9 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *               description:
  *                 type: string
  *               user_id:
- *                 type: integer
+ *                 type: string
  *               routinetype_id:
- *                 type: integer
+ *                 type: string
  *             required:
  *               - name
  *               - user_id
@@ -86,7 +86,7 @@ router.get("/user/:user_id", routineController.findAllByUser);
  *       400:
  *         description: Some values are wrong.
  */
-router.post("/create/:user_id", routineController.create)
+router.post("/create/:user_id", routineController.create);
 /**
  * @swagger
  * /api/v1/routines/update:
@@ -97,19 +97,19 @@ router.post("/create/:user_id", routineController.create)
  *     description: Updates a Routine with a specific routine ID.
  *     requestBody:
  *       required: true
- *       content:  
+ *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
  *               routine_id:
- *                 type: number
+ *                 type: string
  *               name:
  *                 type: string
  *               description:
  *                 type: string
  *               routinetype_id:
- *                 type: number
+ *                 type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -118,7 +118,7 @@ router.post("/create/:user_id", routineController.create)
  *       400:
  *         description: Some values are wrong.
  */
-router.put("/update/:routine_id", routineController.update)
+router.put("/update/:routine_id", routineController.update);
 /**
  * @swagger
  * /api/v1/routines/{routine_id}:
@@ -142,6 +142,6 @@ router.put("/update/:routine_id", routineController.update)
  *       400:
  *         description: Some values are wrong.
  */
-router.delete("/:routine_id", routineController.deleteById)
+router.delete("/:routine_id", routineController.deleteById);
 
 export default router;

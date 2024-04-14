@@ -39,7 +39,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "usersettings" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "user_id" TEXT NOT NULL,
     "activeroutine" UUID,
 

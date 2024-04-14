@@ -33,7 +33,7 @@ router.get("/", routineTypesController.findAll);
  *         required: true
  *         description: Unique identifier of the RoutineType.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -58,7 +58,7 @@ router.get("/:routinetype_id", routineTypesController.findById);
  *         required: true
  *         description: Unique identifier of the RoutineType to be deleted.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -91,7 +91,6 @@ router.delete("/:routinetype_id", routineTypesController.deleteById);
  *               icon_url:
  *                 type: string
  *             required:
- *               - routine_id
  *               - name
  *               - description
  *     produces:

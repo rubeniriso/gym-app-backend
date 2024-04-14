@@ -72,7 +72,7 @@ router.get(
  *               userId:
  *                 type: string
  *               routineId:
- *                 type: number
+ *                 type: string
  *             required:
  *               - userId
  *               - routineId
