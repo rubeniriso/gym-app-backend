@@ -5,24 +5,24 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/trainingdayexercises/{session_id}:
+ * /api/v1/trainingdayexercises/{trainingday_id}:
  *   get:
  *     tags:
  *       - TrainingDayExercise
- *     summary: Get a TrainingDayExercise by session ID
- *     description: Retrieve details of the exercises for a specific session.
+ *     summary: Get a TrainingDayExercise by Training Day ID
+ *     description: Retrieve details of the exercises for a specific Training Day.
  *     parameters:
  *       - in: path
- *         name: session_id
+ *         name: trainingday_id
  *         required: true
- *         description: Unique identifier of the session.
+ *         description: Unique identifier of the Training Day.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: Detailed information about the session exercise.
+ *         description: Detailed information about the Training Day exercise.
  *       404:
  *         description: TrainingDayExercise not found.
  */
@@ -74,8 +74,6 @@ router.delete(
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
  *               sets:
  *                 type: integer
  *               reps:
@@ -90,7 +88,6 @@ router.delete(
  *               exercise_id:
  *                 type: string
  *             required:
- *               - name
  *               - session_id
  *               - exercise_id
  *     produces:

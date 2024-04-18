@@ -71,28 +71,28 @@ router.get("/name/:name", exerciseController.findExerciseByName);
 
 /**
  * @swagger
- * /api/v1/exercises/body-part/{body_part}:
+ * /api/v1/exercises/muscle/{muscle_id}:
  *   get:
  *     tags:
  *       - Exercises
- *     summary: Get Exercises by Body Part
- *     description: Retrieve a list of exercises associated with a specific body part.
+ *     summary: Get Exercises by main muscle
+ *     description: Retrieve a list of exercises associated with a specific muscle.
  *     parameters:
  *       - in: path
- *         name: body_part
+ *         name: muscle_id
  *         required: true
- *         description: The body part to search exercises for.
+ *         description: The muscle id to search exercises for.
  *         schema:
  *           type: string
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: An array of exercises related to the specified body part.
+ *         description: An array of exercises related to the specified muscle.
  *       404:
- *         description: No exercises found for the specified body part.
+ *         description: No exercises found for the specified muscle.
  */
-router.get("/body-part/:body_part", exerciseController.findExerciseByBodyPart);
+router.get("/muscle/:muscle_id", exerciseController.findExerciseByMuscleId);
 
 /**
  * @swagger

@@ -29,10 +29,10 @@ const findExerciseByName = async (req, res) => {
   }
 };
 
-const findExerciseByBodyPart = async (req, res) => {
+const findExerciseByMuscleId = async (req, res) => {
   try {
-    const bodyPart = req.params.body_part;
-    const response = await ExerciseModel.findByBodyPart(bodyPart);
+    const muscleId = req.params.muscleId;
+    const response = await ExerciseModel.findByMuscleId(muscleId);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
@@ -52,7 +52,7 @@ const findExerciseByEquipment = async (req, res) => {
 export const exerciseController = {
   findExerciseById,
   findExerciseByName,
-  findExerciseByBodyPart,
+  findExerciseByMuscleId,
   findExerciseByEquipment,
   findAll,
 };

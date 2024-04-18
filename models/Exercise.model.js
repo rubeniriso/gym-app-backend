@@ -20,10 +20,9 @@ const findByName = async (name) => {
   return result;
 };
 
-const findByBodyPart = async (bodyPart) => {
-  const query =
-    "SELECT * FROM exercise where body_part  ILIKE '%' || $1 || '%';";
-  const values = [bodyPart];
+const findByMuscleId = async (muscle_id) => {
+  const query = "SELECT * FROM exercise where muscle_id = $1;";
+  const values = [muscle_id];
   const result = await pool.query(query, values);
   return result;
 };
@@ -39,7 +38,7 @@ const findByEquipment = async (equipment) => {
 export const ExerciseModel = {
   findById,
   findByName,
-  findByBodyPart,
+  findByMuscleId,
   findByEquipment,
   findAll,
 };
