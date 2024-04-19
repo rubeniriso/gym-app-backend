@@ -2,7 +2,7 @@ import { pool } from "../db/connection.js";
 
 const findByTrainingDayId = async (trainingDayId) => {
   const query =
-    "SELECT * FROM trainingdayexercise WHERE trainingdayexercise_id = $1;";
+    "SELECT * FROM trainingdayexercise NATURAL JOIN exercise WHERE trainingday_id = $1;";
   const values = [trainingDayId];
   const result = await pool.query(query, values);
   return result;
@@ -16,20 +16,16 @@ const deleteById = async (trainingDayId) => {
   return result;
 };
 
-const create = async (trainingDayExerciseData) => {
-  const values = [
-    "name",
-    "sets",
-    "reps",
-    "weight",
-    "rir",
-    "session_id",
-    "exercise_id",
-  ].map((key) => trainingDayExerciseData[key]);
+const create = async (trainingday_id, trainingDayExerciseData) => {
+  const values = ["sets", "reps", "weight", "rir", "exercise_id"].map(
+    (key) => trainingDayExerciseData[key]
+  );
+  values.push(trainingday_id);
+  console.log(values);
   const query = `
       INSERT INTO trainingdayexercise
-      (name, sets, reps, weight, rir, trainingday_id, exercise_id)
-      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;
+      (sets, reps, weight, rir, exercise_id, trainingday_id)
+      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;
     `;
   return await pool.query(query, values);
 };

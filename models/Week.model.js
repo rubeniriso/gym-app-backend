@@ -39,6 +39,10 @@ const copy = async (weekData) => {
   const values = [weekData.routine_id, weekData.name, weekData.description];
   return await pool.query(query, values);
 };
+const getWithTrainingDays = async (weekId) => {
+  const query = `
+  `;
+};
 export const WeekModel = {
   findById,
   findAllByRoutineId,

@@ -61,12 +61,19 @@ router.delete(
 
 /**
  * @swagger
- * /api/v1/trainingdayexercises/create:
+ * /api/v1/trainingdayexercises/create/trainingday/{trainingday}:
  *   post:
  *     tags:
  *       - TrainingDayExercise
  *     summary: Create a new TrainingDayExercise
  *     description: Create a new Training day exercise with the provided training day and exercise details.
+ *     parameters:
+ *       - in: path
+ *         name: trainingday_id
+ *         required: true
+ *         description: Unique identifier of the training day.
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -83,8 +90,6 @@ router.delete(
  *                 format: float
  *               rir:
  *                 type: integer
- *               session_id:
- *                 type: string
  *               exercise_id:
  *                 type: string
  *             required:
@@ -98,5 +103,8 @@ router.delete(
  *       400:
  *         description: Invalid input, object invalid.
  */
-router.post("/create", trainingDayExerciseController.create);
+router.post(
+  "/create/trainingday/:trainingday_id",
+  trainingDayExerciseController.create
+);
 export default router;
