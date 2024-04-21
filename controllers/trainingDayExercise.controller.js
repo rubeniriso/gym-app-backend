@@ -12,7 +12,7 @@ const findByTrainingDayId = async (req, res) => {
 
 const deleteById = async (req, res) => {
   try {
-    const id = req.params.trainingDayExercise_id;
+    const id = req.params.trainingdayexercise_id;
     const response = await TrainingDayExerciseModel.deleteById(id);
     res.status(200).json(response.rows);
   } catch (error) {

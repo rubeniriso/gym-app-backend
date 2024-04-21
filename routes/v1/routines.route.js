@@ -16,7 +16,7 @@ const router = Router();
  *         required: true
  *         description: Unique identifier of the routine.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -41,7 +41,7 @@ router.get("/:routine_id", routineController.findById);
  *         required: true
  *         description: Unique identifier of the user to retrieve routines for.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:
@@ -133,7 +133,7 @@ router.put("/update/:routine_id", routineController.update);
  *         required: true
  *         description: Unique identifier of the routine to delete.
  *         schema:
- *           type: integer
+ *           type: string
  *     produces:
  *       - application/json
  *     responses:

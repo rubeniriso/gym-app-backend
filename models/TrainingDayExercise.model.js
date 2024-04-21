@@ -1,8 +1,7 @@
 import { pool } from "../db/connection.js";
 
 const findByTrainingDayId = async (trainingDayId) => {
-  const query =
-    "SELECT * FROM trainingdayexercise NATURAL JOIN exercise WHERE trainingday_id = $1;";
+  const query = "SELECT * FROM trainingdayexercise WHERE trainingday_id = $1;";
   const values = [trainingDayId];
   const result = await pool.query(query, values);
   return result;

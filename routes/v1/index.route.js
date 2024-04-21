@@ -8,6 +8,8 @@ import userSettingsRoutes from "./userSettings.route.js";
 import weekRoutes from "./weeks.route.js";
 import authRoutes from "./auth.route.js";
 import routineTypesRoutes from "./routineTypes.route.js";
+import bodyPartsRoutes from "./bodyparts.route.js";
+import musclesRoutes from "./muscles.route.js";
 
 const router = express.Router();
 
@@ -19,5 +21,7 @@ router.use("/users", userRoutes);
 router.use("/usersettings", userSettingsRoutes);
 router.use("/trainingdayexercises", trainingDayExercisesRoutes);
 router.use("/routinetypes", routineTypesRoutes);
+router.use("/bodyparts", bodyPartsRoutes);
+router.use("/muscles", musclesRoutes);
 router.use("/auth", authRoutes);
 export default router;
