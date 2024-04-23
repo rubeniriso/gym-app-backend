@@ -20,9 +20,24 @@ const findByName = async (name) => {
   return result;
 };
 
-const findByMuscleId = async (muscle_id) => {
-  const query = "SELECT * FROM exercise where muscle_id = $1;";
-  const values = [muscle_id];
+const findExerciseByMuscles = async (body) => {
+  console.log(body.muscles);
+  const query = `SELECT DISTINCT e.*
+  FROM exercise e
+  JOIN muscleexercise me ON e.exercise_id = me.exercise_id
+  WHERE me.muscle_id = ANY($1);`;
+  const values = [body.muscles];
+  const result = await pool.query(query, [values]);
+  return result;
+};
+
+const findByBodyPartId = async (bodypart_id) => {
+  const query = `SELECT e.exercise_id, e.name 
+      FROM exercise e
+      INNER JOIN muscleexercise me ON me.exercise_id = e.exercise_id
+      INNER JOIN muscle m ON me.muscle_id = m.muscle_id
+      WHERE bodypart_id = $1;`;
+  const values = [bodypart_id];
   const result = await pool.query(query, values);
   return result;
 };
@@ -38,7 +53,8 @@ const findByEquipment = async (equipment) => {
 export const ExerciseModel = {
   findById,
   findByName,
-  findByMuscleId,
+  findExerciseByMuscles,
+  findByBodyPartId,
   findByEquipment,
   findAll,
 };

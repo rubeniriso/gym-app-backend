@@ -17,11 +17,11 @@ const getInitialDataQuery = () => {
 		) VALUES ('bodyweight', 'the weight of your body');
 
 		INSERT INTO public.exercise(
-			name, equipment, gif_url, primarymuscle_id, instructions)
+			name, equipment, gif_url, bodypart_id, instructions)
 			VALUES ('push ups', 
 			        (SELECT equipment_id from public.equipment where name='bodyweight'), 
 					null, 
-					(SELECT muscle_id FROM public.muscle where name='pectoralis major'), 
+					(SELECT bodypart_id FROM public.bodypart where name='chest'), 
 					'enpugate del sueloh kon vrasos');
 
 		INSERT INTO public.muscleexercise(
@@ -31,6 +31,9 @@ const getInitialDataQuery = () => {
 			(SELECT muscle_id from public.muscle where name='pectoralis minor'),
 			(SELECT exercise_id from public.exercise where name='push ups')
 		  );
+		  INSERT INTO public.routinetype(
+			name, description, icon_url, icon_alt_text)
+			VALUES ('Weightlifting', 'Lifting weights', 'https://clipground.com/images/dumbbell-vector-clipart-1.png', 'Dumbbell');
 	COMMIT;
 	END;
 	`;

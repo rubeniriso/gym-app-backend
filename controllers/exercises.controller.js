@@ -29,16 +29,23 @@ const findExerciseByName = async (req, res) => {
   }
 };
 
-const findExerciseByMuscleId = async (req, res) => {
+const findExerciseByMuscles = async (req, res) => {
   try {
-    const muscleId = req.params.muscleId;
-    const response = await ExerciseModel.findByMuscleId(muscleId);
+    const response = await ExerciseModel.findExerciseByMuscles(req.body);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
   }
 };
-
+const findExerciseByBodyPartId = async (req, res) => {
+  try {
+    const bodypart_id = req.params.bodypart_id;
+    const response = await ExerciseModel.findByBodyPartId(bodypart_id);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
 const findExerciseByEquipment = async (req, res) => {
   try {
     const equipment = req.params.equipment;
@@ -52,7 +59,8 @@ const findExerciseByEquipment = async (req, res) => {
 export const exerciseController = {
   findExerciseById,
   findExerciseByName,
-  findExerciseByMuscleId,
+  findExerciseByMuscles,
+  findExerciseByBodyPartId,
   findExerciseByEquipment,
   findAll,
 };

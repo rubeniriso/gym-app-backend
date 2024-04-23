@@ -71,19 +71,25 @@ router.get("/name/:name", exerciseController.findExerciseByName);
 
 /**
  * @swagger
- * /api/v1/exercises/muscle/{muscle_id}:
- *   get:
+ * /api/v1/exercises/muscles:
+ *   post:
  *     tags:
  *       - Exercises
- *     summary: Get Exercises by main muscle
- *     description: Retrieve a list of exercises associated with a specific muscle.
- *     parameters:
- *       - in: path
- *         name: muscle_id
- *         required: true
- *         description: The muscle id to search exercises for.
- *         schema:
- *           type: string
+ *     summary: Get Exercises by list of muscles
+ *     description: Retrieve a list of exercises associated with specific muscles.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               muscles:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *             required:
+ *               - muscles
  *     produces:
  *       - application/json
  *     responses:
@@ -92,8 +98,34 @@ router.get("/name/:name", exerciseController.findExerciseByName);
  *       404:
  *         description: No exercises found for the specified muscle.
  */
-router.get("/muscle/:muscle_id", exerciseController.findExerciseByMuscleId);
-
+router.post("/muscles", exerciseController.findExerciseByMuscles);
+/**
+ * @swagger
+ * /api/v1/exercises/bodypart/{bodypart_id}:
+ *   get:
+ *     tags:
+ *       - Exercises
+ *     summary: Get Exercises by bodypart
+ *     description: Retrieve a list of exercises associated with a specific bodypart.
+ *     parameters:
+ *       - in: path
+ *         name: bodypart_id
+ *         required: true
+ *         description: The bodypart id to search exercises for.
+ *         schema:
+ *           type: string
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of exercises related to the specified bodypart.
+ *       404:
+ *         description: No exercises found for the specified bodypart.
+ */
+router.get(
+  "/bodypart/:bodypart_id",
+  exerciseController.findExerciseByBodyPartId
+);
 /**
  * @swagger
  * /api/v1/exercises/equipment/{equipment}:
