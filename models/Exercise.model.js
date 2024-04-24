@@ -21,7 +21,6 @@ const findByName = async (name) => {
 };
 
 const findExerciseByMuscles = async (body) => {
-  console.log(body.muscles);
   const query = `SELECT DISTINCT e.*
   FROM exercise e
   JOIN muscleexercise me ON e.exercise_id = me.exercise_id
@@ -32,7 +31,7 @@ const findExerciseByMuscles = async (body) => {
 };
 
 const findByBodyPartId = async (bodypart_id) => {
-  const query = `SELECT DISTINCT e.exercise_id, e.name 
+  const query = `SELECT DISTINCT e.exercise_id, e.name, e.instructions
       FROM exercise e
       INNER JOIN muscleexercise me ON me.exercise_id = e.exercise_id
       INNER JOIN muscle m ON me.muscle_id = m.muscle_id
