@@ -116,4 +116,44 @@ router.delete("/:week_id", weekController.deleteById);
  */
 router.post("/create/:routine_id", weekController.create);
 
+
+/**
+ * @swagger
+ * /api/v1/weeks/update/{week_id}:
+ *   put:
+ *     tags:
+ *       - Weeks
+ *     summary: Updates a Week
+ *     description: Updates a Week with a specific week ID.
+ *     parameters:
+ *       - in: path
+ *         name: week_id
+ *         required: true
+ *         description: Identifier of the week to be updated.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - description
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: The week was succesfully updated.
+ *       400:
+ *         description: Some values are wrong.
+ */
+router.put("/update/:week_id", weekController.update);
+
 export default router;

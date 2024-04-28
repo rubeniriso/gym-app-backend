@@ -39,9 +39,19 @@ const create = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const response = await WeekModel.update(req.params.week_id, req.body);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const weekController = {
   findById,
   findAllByRoutineId,
   deleteById,
   create,
+  update,
 };

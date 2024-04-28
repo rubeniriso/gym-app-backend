@@ -43,9 +43,26 @@ const getWithTrainingDays = async (weekId) => {
   const query = `
   `;
 };
+
+const update = async (week_id, weekData) => {
+  const values = ["name", "description"].map(
+    (key) => weekData[key]
+  );
+  values.push(week_id);
+  const query = `
+      UPDATE week
+      SET
+        name = $1,
+        description = $2
+      WHERE week_id = $3
+      RETURNING *;
+    `;
+  return await pool.query(query, values);
+};
 export const WeekModel = {
   findById,
   findAllByRoutineId,
   deleteById,
   create,
+  update
 };
