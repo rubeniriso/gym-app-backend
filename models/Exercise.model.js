@@ -26,7 +26,6 @@ const findExerciseByMuscles = async (body) => {
   JOIN muscleexercise me ON e.exercise_id = me.exercise_id
   WHERE me.muscle_id = ANY($1);`;
   const values = [body.muscles];
-  console.log(values);
   const result = await pool.query(query, [values]);
   return result;
 };
