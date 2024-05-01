@@ -8,7 +8,7 @@ const findById = async (id) => {
 };
 
 const findAllByRoutineId = async (id) => {
-  const query = "SELECT * FROM week WHERE routine_id = $1";
+  const query = "SELECT * FROM week WHERE routine_id = $1 ORDER BY order_ ASC";
   const values = [id];
   const result = await pool.query(query, values);
   return result;
@@ -27,7 +27,7 @@ const create = async (routine_id, weekData) => {
     RETURNING *;
   `;
   const values = [routine_id, weekData.name, weekData.description];
-  return await pool.query(query, values);
+  return (await pool.query(query, values));
 };
 const copy = async (weekData) => {
   const query = `

@@ -24,7 +24,7 @@ const deleteById = async (req, res) => {
   try {
     const id = req.params.trainingday_id;
     const response = await TrainingDayModel.deleteById(id);
-    res.status(200).json(response.rows);
+    res.status(200).json(response.rows[0]);
   } catch (error) {
     console.log(error);
   }
@@ -33,6 +33,15 @@ const deleteById = async (req, res) => {
 const create = async (req, res) => {
   try {
     const response = await TrainingDayModel.create(req.params.week_id, req.body);
+    res.status(200).json(response.rows[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const update = async (req, res) => {
+  try {
+    const response = await TrainingDayModel.update(req.params.trainingday_id, req.body);
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
@@ -43,5 +52,6 @@ export const trainingDayController = {
   findById,
   findByWeekId,
   deleteById,
-  create
+  create,
+  update
 };

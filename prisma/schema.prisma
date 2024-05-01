@@ -116,6 +116,7 @@ model routine {
   routinetype    routinetype    @relation(fields: [routinetype_id], references: [routinetype_id], onDelete: NoAction, onUpdate: NoAction)
   weeks          week[]
   usersettings   usersettings[]
+  order_         Int            @unique @default(autoincrement())
 }
 
 model routinetype {
@@ -137,6 +138,7 @@ model trainingdayexercise {
   exercise               exercise?   @relation(fields: [exercise_id], references: [exercise_id], onDelete: Cascade, onUpdate: NoAction)
   trainingday_id         String      @db.Uuid
   trainingday            trainingday @relation(fields: [trainingday_id], references: [trainingday_id], onDelete: Cascade, onUpdate: NoAction)
+  order_                 Int         @unique @default(autoincrement())
 }
 
 model trainingday {
@@ -146,6 +148,7 @@ model trainingday {
   week_id             String?               @db.Uuid
   week                week?                 @relation(fields: [week_id], references: [week_id], onDelete: Cascade, onUpdate: NoAction)
   trainingdayexercise trainingdayexercise[]
+  order_              Int                   @unique @default(autoincrement())
 }
 
 model week {
@@ -155,4 +158,5 @@ model week {
   routine_id   String        @db.Uuid
   routine      routine       @relation(fields: [routine_id], references: [routine_id], onDelete: Cascade, onUpdate: NoAction)
   trainingdays trainingday[]
+  order_       Int           @unique @default(autoincrement())
 }
