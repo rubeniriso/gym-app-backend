@@ -57,7 +57,6 @@ const findExerciseByEquipment = async (req, res) => {
 };
 const findFiltered = async (req, res) => {
   try {
-    console.log(req.body);
     const response = await ExerciseModel.findFiltered(req.body);
     res.status(200).json(response.rows);
   } catch (error) {
