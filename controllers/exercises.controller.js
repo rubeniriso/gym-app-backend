@@ -55,7 +55,23 @@ const findExerciseByEquipment = async (req, res) => {
     console.log(error);
   }
 };
-
+const findFiltered = async (req, res) => {
+  try {
+    console.log(req.body);
+    const response = await ExerciseModel.findFiltered(req.body);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const findAllFilters = async (req, res) => {
+  try {
+    const response = await ExerciseModel.findAllFilters();
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const exerciseController = {
   findExerciseById,
   findExerciseByName,
@@ -63,4 +79,6 @@ export const exerciseController = {
   findExerciseByBodyPartId,
   findExerciseByEquipment,
   findAll,
+  findFiltered,
+  findAllFilters,
 };

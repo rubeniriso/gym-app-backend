@@ -72,9 +72,10 @@ model bodypart {
 }
 
 model equipment {
-  equipment_id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  equipment_id String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
   description  String
+  exercise     exercise[]
 }
 
 model muscle {
@@ -97,7 +98,8 @@ model muscleexercise {
 model exercise {
   exercise_id         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name                String?               @db.VarChar(100)
-  equipment           String?               @db.VarChar(100)
+  equipment_id        String                @db.Uuid
+  equipment           equipment             @relation(fields: [equipment_id], references: [equipment_id])
   gif_url             String?               @db.VarChar(255)
   instructions        String
   trainingdayexercise trainingdayexercise[]

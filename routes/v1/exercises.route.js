@@ -150,5 +150,53 @@ router.get(
  *         description: No exercises found for the specified equipment.
  */
 router.get("/equipment/:equipment", exerciseController.findExerciseByEquipment);
-
+/**
+ * @swagger
+ * /api/v1/exercises/filter:
+ *   post:
+ *     tags:
+ *       - Exercises
+ *     summary: Get Exercises by filters
+ *     description: Retrieve a list of exercises filtered by filters.
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               muscles:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               bodyparts:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: An array of exercises that match the filters.
+ *       404:
+ *         description: No exercises found for the specified equipment.
+ */
+router.post("/filter", exerciseController.findFiltered);
+/**
+ * @swagger
+ * /api/v1/exercises/get-all/filters:
+ *   get:
+ *     tags:
+ *       - Exercises
+ *     summary: Get Exercise filters
+ *     description: Retrieve a list of Exercise filters.
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of exercises that require the specified equipment.
+ *       404:
+ *         description: No exercises found for the specified equipment.
+ */
+router.get("/get-all/filters", exerciseController.findAllFilters);
 export default router;
