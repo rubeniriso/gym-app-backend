@@ -28,7 +28,6 @@ const create = async (week_id, trainingDayData) => {
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
-  console.log(week_id, trainingDayData);
   const values = [trainingDayData.name, trainingDayData.description, week_id];
   return await pool.query(query, values);
 };
@@ -37,5 +36,5 @@ export const TrainingDayModel = {
   findById,
   findByWeekId,
   deleteById,
-  create
+  create,
 };

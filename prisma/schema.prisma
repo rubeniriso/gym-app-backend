@@ -72,9 +72,10 @@ model bodypart {
 }
 
 model equipment {
-  equipment_id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  equipment_id String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
   description  String
+  exercise     exercise[]
 }
 
 model muscle {
@@ -83,7 +84,6 @@ model muscle {
   description    String
   bodypart_id    String           @db.Uuid
   bodypart       bodypart         @relation(fields: [bodypart_id], references: [bodypart_id], onDelete: Cascade, onUpdate: NoAction)
-  exercise       exercise[]
   muscleexercise muscleexercise[]
 }
 
@@ -98,10 +98,9 @@ model muscleexercise {
 model exercise {
   exercise_id         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name                String?               @db.VarChar(100)
-  equipment           String?               @db.VarChar(100)
+  equipment_id        String                @db.Uuid
+  equipment           equipment             @relation(fields: [equipment_id], references: [equipment_id])
   gif_url             String?               @db.VarChar(255)
-  primarymuscle_id    String                @db.Uuid
-  primarymuscle       muscle                @relation(fields: [primarymuscle_id], references: [muscle_id], onDelete: Cascade, onUpdate: NoAction)
   instructions        String
   trainingdayexercise trainingdayexercise[]
   muscleexercise      muscleexercise[]
@@ -112,7 +111,7 @@ model routine {
   name           String         @db.VarChar(100)
   description    String?
   user_id        String
-  user           User           @relation(fields: [user_id], references: [id])
+  user           User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
   routinetype_id String         @db.Uuid
   routinetype    routinetype    @relation(fields: [routinetype_id], references: [routinetype_id], onDelete: NoAction, onUpdate: NoAction)
   weeks          week[]
@@ -134,8 +133,8 @@ model trainingdayexercise {
   reps                   Int?
   weight                 Int?
   rir                    Int?
-  exercise_id            String      @db.Uuid
-  exercise               exercise    @relation(fields: [exercise_id], references: [exercise_id], onDelete: Cascade, onUpdate: NoAction)
+  exercise_id            String?     @db.Uuid
+  exercise               exercise?   @relation(fields: [exercise_id], references: [exercise_id], onDelete: Cascade, onUpdate: NoAction)
   trainingday_id         String      @db.Uuid
   trainingday            trainingday @relation(fields: [trainingday_id], references: [trainingday_id], onDelete: Cascade, onUpdate: NoAction)
 }

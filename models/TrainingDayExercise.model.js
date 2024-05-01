@@ -23,7 +23,6 @@ const create = async (trainingday_id, trainingDayExerciseData) => {
     (key) => trainingDayExerciseData[key]
   );
   values.push(trainingday_id);
-  console.log(values);
   const query = `
       INSERT INTO trainingdayexercise
       (sets, reps, weight, rir, exercise_id, trainingday_id)
