@@ -4,7 +4,7 @@ const findByTrainingDayId = async (trainingDayId) => {
   const query =
     // The empty exercise I am creating (In "add exercise" in the frontend) is not in exercise table son the natural join is empty
     // "SELECT * FROM trainingdayexercise NATURAL JOIN exercise WHERE trainingday_id = $1;";
-    "SELECT * FROM trainingdayexercise where trainingday_id = $1";
+    "SELECT * FROM trainingdayexercise where trainingday_id = $1 ORDER BY order_ ASC";
   const values = [trainingDayId];
   const result = await pool.query(query, values);
   return result;

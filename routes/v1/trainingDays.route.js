@@ -116,4 +116,43 @@ router.delete("/:trainingday_id", trainingDayController.deleteById);
  */
 router.post("/create/:week_id", trainingDayController.create);
 
+/**
+ * @swagger
+ * /api/v1/trainingDays/update/{trainingday_id}:
+ *   put:
+ *     tags:
+ *       - TrainingDays
+ *     summary: Updates a training day
+ *     description: Updates a Training day with a specific training day ID.
+ *     parameters:
+ *       - in: path
+ *         name: trainingday_id
+ *         required: true
+ *         description: Identifier of the training day to be updated.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - description
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: The training day was succesfully updated.
+ *       400:
+ *         description: Some values are wrong.
+ */
+router.put("/update/:trainingday_id", trainingDayController.update);
+
 export default router;

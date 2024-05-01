@@ -11,7 +11,7 @@ const findAllByUser = async (userId) => {
     SELECT routine.*, routinetype.icon_url, routinetype.icon_alt_text
     FROM routine
     JOIN routinetype ON routine.routinetype_id = routinetype.routinetype_id
-    WHERE user_id = $1;
+    WHERE user_id = $1 ORDER BY order_ ASC;
   `;
   const values = [userId];
   return await pool.query(query, values);
