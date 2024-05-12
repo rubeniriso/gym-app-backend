@@ -66,9 +66,10 @@ model VerificationToken {
 }
 
 model bodypart {
-  bodypart_id String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String   @db.VarChar(100)
+  bodypart_id String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String     @db.VarChar(100)
   muscle      muscle[]
+  exercise    exercise[]
 }
 
 model equipment {
@@ -102,6 +103,8 @@ model exercise {
   equipment           equipment             @relation(fields: [equipment_id], references: [equipment_id])
   gif_url             String?               @db.VarChar(255)
   instructions        String
+  bodypart_id         String?               @db.Uuid
+  bodypart            bodypart?             @relation(fields: [bodypart_id], references: [bodypart_id])
   trainingdayexercise trainingdayexercise[]
   muscleexercise      muscleexercise[]
 }

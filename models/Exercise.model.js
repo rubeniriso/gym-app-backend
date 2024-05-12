@@ -35,7 +35,7 @@ const findByBodyPartId = async (bodypart_id) => {
       FROM exercise e
       INNER JOIN muscleexercise me ON me.exercise_id = e.exercise_id
       INNER JOIN muscle m ON me.muscle_id = m.muscle_id
-      WHERE bodypart_id = $1;`;
+      WHERE e.bodypart_id = $1;`;
   const values = [bodypart_id];
   const result = await pool.query(query, values);
   return result;
