@@ -50,48 +50,31 @@ const update = async (trainingday_id, trainingDayData) => {
 const updateExercises = async (trainingday_id, trainingDayExerciseData) => {
   try {
     await pool.query("BEGIN");
-    console.log("got here");
-    // Construct the values string for all exercises
-    const values = trainingDayExerciseData.exerciseData
-      .map(
-        (exerciseData) =>
-          `(${exerciseData.trainingDayExerciseId}, 
-        ${exerciseData}, 
-        ${exerciseData.bodyPart}, 
-        ${exerciseData.muscle}, 
-        ${exerciseData.exercise}, 
-        ${exerciseData.sets}, 
-        ${exerciseData.reps}, 
-        ${exerciseData.weight}, 
-        ${exerciseData.rir})`
-      )
-      .join(", ");
-
-    // Merge operation using a single SQL query
-    await pool.query(`
-      MERGE INTO trainingdayexercise AS target
-      USING (VALUES ${values}) AS source (trainingdayexercise_id, bodypart_id, muscle_id, exercise_id, sets, reps, weight, rir)
-      ON target.trainingdayexercise_id = source.trainingdayexercise_id
-      WHEN MATCHED THEN
-        UPDATE SET
-          bodypart_id = source.bodypart_id,
-          muscle_id = source.muscle_id,
-          exercise_id = source.exercise_id,
-          sets = source.sets,
-          reps = source.reps,
-          weight = source.weight,
-          rir = source.rir
-      WHEN NOT MATCHED THEN
-        INSERT (trainingdayexercise_id, trainingday_id, bodypart_id, muscle_id, exercise_id, sets, reps, weight, rir)
-        VALUES (source.trainingdayexercise_id, ${trainingday_id}, source.bodypart_id, source.muscle_id, source.exercise_id, source.sets, source.reps, source.weight, source.rir);
-    `);
-
+    for (const exerciseData of trainingDayExerciseData.exerciseData) {
+      const { trainingDayExerciseId, exercise, sets, reps, weight, rir } =
+        exerciseData;
+      // Execute UPDATE statement for each exercise
+      await pool.query(
+        `
+        UPDATE trainingdayexercise
+        SET 
+            exercise_id = $2,
+            sets = $3,
+            reps = $4,
+            weight = $5,
+            rir = $6
+        WHERE trainingdayexercise_id = $1;
+      `,
+        [trainingDayExerciseId, exercise, sets, reps, weight, rir]
+      );
+    }
     await pool.query("COMMIT");
+    return true;
   } catch (error) {
     await pool.query("ROLLBACK");
     throw error;
   }
-  return await pool.query(query, values);
+  return;
 };
 
 export const TrainingDayModel = {
