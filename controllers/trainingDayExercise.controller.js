@@ -22,7 +22,6 @@ const deleteById = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    console.log(req);
     const response = await TrainingDayExerciseModel.create(
       req.params.trainingday_id,
       req.body

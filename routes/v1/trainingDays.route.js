@@ -154,5 +154,61 @@ router.post("/create/:week_id", trainingDayController.create);
  *         description: Some values are wrong.
  */
 router.put("/update/:trainingday_id", trainingDayController.update);
-
+/**
+ * @swagger
+ * /api/v1/trainingDays/update/{trainingday_id}:
+ *   put:
+ *     tags:
+ *       - TrainingDays
+ *     summary: Updates a training day
+ *     description: Updates a Training day with a specific training day ID.
+ *     parameters:
+ *       - in: path
+ *         name: trainingday_id
+ *         required: true
+ *         description: Identifier of the training day to be updated.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               type: object
+ *               properties:
+ *                 bodyPart:
+ *                   type: string
+ *                 exercise:
+ *                   type: string
+ *                 muscle:
+ *                   type: string
+ *                 reps:
+ *                   type: integer
+ *                 sets:
+ *                   type: integer
+ *                 rir:
+ *                   type: integer
+ *                 trainingDayExerciseId:
+ *                   type: string
+ *                 weight:
+ *                   type: float
+ *               description:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - description
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: The training day was succesfully updated.
+ *       400:
+ *         description: Some values are wrong.
+ */
+router.post(
+  "/update/exercises/:trainingday_id",
+  trainingDayController.updateExercises
+);
 export default router;
