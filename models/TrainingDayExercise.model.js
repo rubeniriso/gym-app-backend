@@ -6,7 +6,7 @@ const findByTrainingDayId = async (trainingDayId) => {
     // "SELECT * FROM trainingdayexercise NATURAL JOIN exercise WHERE trainingday_id = $1;";
     `SELECT tde.*, e.bodypart_id
     FROM trainingdayexercise tde
-    INNER JOIN exercise e ON e.exercise_id = tde.exercise_id
+    LEFT JOIN exercise e ON e.exercise_id = tde.exercise_id
     where tde.trainingday_id = $1
     ORDER BY order_ ASC`;
   const values = [trainingDayId];
